@@ -208,6 +208,8 @@ export default {
     }
 
     async function startTrafficCycle() {
+      startClock();
+
       while (systemActive.value && !maintenanceMode.value && !systemError.value) {
         stateA.value = STATES.RED;
         stateB.value = STATES.RED;
@@ -269,6 +271,7 @@ export default {
 
     watch([maintenanceMode, systemError], ([newMaintenance, newError]) => {
       clearAllTimers();
+      startClock();
       if (newMaintenance) {
         currentStatus.value = 'Wartungsmodus';
         startMaintenanceMode();
@@ -279,7 +282,6 @@ export default {
         currentStatus.value = 'aktiv';
         startTrafficCycle();
       }
-      startClock();
     });
 
     watch(currentDateTime, (newDateTime) => {
