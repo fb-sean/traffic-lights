@@ -294,6 +294,10 @@ export default {
     });
 
     function toggleMaintenance() {
+      if (!maintenanceMode.value) {
+        systemActive.value = false;
+      }
+
       maintenanceMode.value = !maintenanceMode.value;
 
       if (!maintenanceMode.value) {
